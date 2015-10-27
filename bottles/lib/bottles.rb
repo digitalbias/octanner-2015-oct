@@ -12,10 +12,10 @@ class Bottles
     "#{quantity(number).capitalize} #{container(number)} of beer on the wall, "+
     "#{quantity(number)} #{container(number)} of beer.\n" + 
     "#{action(number)}, " +
-    "#{quantity(next_quantity(number))} #{container(next_quantity(number))} of beer on the wall.\n"
+    "#{quantity(next_number(number))} #{container(next_number(number))} of beer on the wall.\n"
   end
 
-  def next_quantity(number)
+  def next_number(number)
     if number == 0
       99
     else
