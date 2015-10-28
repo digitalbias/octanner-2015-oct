@@ -23,3 +23,28 @@ class Farm
     "Old MacDonald had a farm, E-I-E-I-O."
   end
 end
+
+class FarmAnimal
+
+  def self.all(ids)
+    Animal.all(ids).map{|animal| animal || NoAnimal.new(animal) }
+  end
+
+end
+
+class NoAnimal
+  attr_reader :animal
+
+  def initialize(animal)
+    @animal = animal
+  end
+
+  def sound
+    "<silence>"
+  end
+
+  def species
+    "<silence>"
+  end
+end
+
