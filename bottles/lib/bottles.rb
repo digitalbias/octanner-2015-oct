@@ -9,7 +9,7 @@ class Bottles
   end
 
   def verse(number)
-    bottle_number = BottleNumber.factory(number)
+    bottle_number = BottleNumber.bottle_number_for(number)
     
     "#{bottle_number} of beer on the wall, ".capitalize +
     "#{bottle_number} of beer.\n" + 
@@ -21,7 +21,7 @@ end
 class BottleNumber
   attr_reader :number
 
-  def self.factory(number)
+  def self.bottle_number_for(number)
     case number
     when 0
       BottleNumber0
@@ -43,7 +43,7 @@ class BottleNumber
   end
 
   def next
-    BottleNumber.factory(number-1)
+    BottleNumber.bottle_number_for(number-1)
   end
 
   def action
@@ -69,7 +69,7 @@ class BottleNumber0 < BottleNumber
   end
 
   def next
-    BottleNumber.factory(99)
+    BottleNumber.bottle_number_for(99)
   end
 
   def action
