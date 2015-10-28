@@ -47,10 +47,10 @@ class BottleNumber
   end
 
   def action
-    "Take #{a_serving} down and pass it around"
+    "Take #{serving} down and pass it around"
   end
 
-  def a_serving
+  def serving
     "one"
   end
 
@@ -79,7 +79,7 @@ end
 
 class BottleNumber1 < BottleNumber
 
-  def a_serving
+  def serving
     "it"
   end
 
