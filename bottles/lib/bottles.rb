@@ -14,7 +14,7 @@ class Bottles
     "#{bottle_number} of beer on the wall, ".capitalize +
     "#{bottle_number} of beer.\n" + 
     "#{bottle_number.action}, " +
-    "#{bottle_number.next_number} of beer on the wall.\n"
+    "#{bottle_number.next} of beer on the wall.\n"
   end
 end
 
@@ -42,7 +42,7 @@ class BottleNumber
     "#{quantity} #{container}"
   end
 
-  def next_number
+  def next
     BottleNumber.factory(number-1)
   end
 
@@ -68,7 +68,7 @@ class BottleNumber0 < BottleNumber
     "no more"
   end
 
-  def next_number
+  def next
     BottleNumber.factory(99)
   end
 
