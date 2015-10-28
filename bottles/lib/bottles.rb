@@ -1,3 +1,9 @@
+class Fixnum
+  def to_bottle_number
+    BottleNumber.for(self)
+  end
+end
+
 class Bottles
 
   def song
@@ -9,7 +15,7 @@ class Bottles
   end
 
   def verse(number)
-    bottle_number = BottleNumber.for(number)
+    bottle_number = number.to_bottle_number
     
     "#{bottle_number} of beer on the wall, ".capitalize +
     "#{bottle_number} of beer.\n" + 
@@ -43,7 +49,7 @@ class BottleNumber
   end
 
   def next
-    BottleNumber.for(number-1)
+    (number-1).to_bottle_number
   end
 
   def action
@@ -69,7 +75,7 @@ class BottleNumber0 < BottleNumber
   end
 
   def next
-    BottleNumber.for(99)
+    99.to_bottle_number
   end
 
   def action
