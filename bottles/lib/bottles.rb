@@ -9,16 +9,19 @@ class Bottles
   end
 
   def verse(number)
-    bottle_number      = bottle_number_for(number)
-    next_bottle_number = bottle_number_for(bottle_number.successor)
-
+    bottle_number = BottleNumber.factory(number)
+    
     "#{bottle_number} of beer on the wall, ".capitalize +
-    "#{bottle_number} of beer.\n" +
+    "#{bottle_number} of beer.\n" + 
     "#{bottle_number.action}, " +
-    "#{next_bottle_number} of beer on the wall.\n"
+    "#{bottle_number.next_number} of beer on the wall.\n"
   end
+end
 
-  def bottle_number_for(number)
+class BottleNumber
+  attr_reader :number
+
+  def self.factory(number)
     case number
     when 0
       BottleNumber0
@@ -31,66 +34,63 @@ class Bottles
     end.new(number)
   end
 
-end
-
-class BottleNumber
-  attr_reader :number
   def initialize(number)
     @number = number
   end
 
   def to_s
-    "#{amount} #{container}"
+    "#{quantity} #{container}"
+  end
+
+  def next_number
+    BottleNumber.factory(number-1)
+  end
+
+  def action
+    "Take #{a_serving} down and pass it around"
+  end
+
+  def a_serving
+    "one"
+  end
+
+  def quantity
+    number.to_s
   end
 
   def container
     "bottles"
   end
-
-  def pronoun
-    "one"
-  end
-
-  def amount
-    number.to_s
-  end
-
-  def action
-    "Take #{pronoun} down and pass it around"
-  end
-
-  def successor
-    number - 1
-  end
 end
 
 class BottleNumber0 < BottleNumber
-  def amount
+  def quantity
     "no more"
+  end
+
+  def next_number
+    BottleNumber.factory(99)
   end
 
   def action
     "Go to the store and buy some more"
   end
-
-  def successor
-    99
-  end
 end
 
 class BottleNumber1 < BottleNumber
-  def container
-    "bottle"
+
+  def a_serving
+    "it"
   end
 
-  def pronoun
-    "it"
+  def container
+    "bottle"
   end
 end
 
 class BottleNumber6 < BottleNumber
 
-  def amount
+  def quantity
     "1"
   end
 
