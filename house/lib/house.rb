@@ -13,6 +13,18 @@ class House
     'the malt that lay in',
     'the house that Jack built']
 
+  attr_reader :data
+  attr_reader :formater
+
+  def initialize(orderer: DefaultOrder.new, formater: DefaultFormater.new)
+  # def initialize(orderer: DefaultOrder.new, formater: EchoFormater.new)
+  # def initialize(orderer: ShuffleOrder.new, formater: DefaultFormater.new)
+  # def initialize(orderer: ShuffleOrder.new, formater: EchoFormater.new)
+  # def initialize(orderer: BangShuffleOrder.new, formater: DefaultFormater.new)
+    @data = orderer.order(DATA)
+    @formater = formater
+  end
+
   def recite
     1.upto(12).collect {|i| line(i)}.join("\n")
   end
@@ -22,10 +34,42 @@ class House
   end
 
   def phrase(num)
-    data.last(num).join(' ')
+    part(num).join(' ')
   end
 
-  def data
-    DATA
+  def part(num)
+    formater.format(data,num)
   end
 end
+
+
+class ShuffleOrder
+  def order(data)
+    data.shuffle
+  end
+end
+
+class DefaultOrder
+  def order(data)
+    data
+  end
+end
+
+class BangShuffleOrder
+  def order(data)
+    data[0..-1].shuffle.push(data.last)
+  end
+end
+
+class DefaultFormater
+  def format(data,num)
+    data.last(num)
+  end
+end
+
+class EchoFormater
+  def format(data,num)
+    data.last(num).zip(data.last(num))
+  end
+end
+
